@@ -9,7 +9,10 @@
   "bin": {
     "spajs": "dist/index.js"
   },
-  "author": "",
+  "typescript": {
+    "definition": "dist/index.d.ts"
+  },
+  "author": "Aleksandar Mirilovic",
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.7.15",
