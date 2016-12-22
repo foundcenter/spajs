@@ -1,0 +1,44 @@
+{
+  "name": "spajs",
+  "version": "1.0.0",
+  "description": "Tool for deploying static websites/spa to AWS.",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "spajs": "dist/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.7.15",
+    "commander": "^2.9.0",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-assetpaths": "^0.3.0",
+    "gulp-awspublish": "^3.3.0",
+    "gulp-csso": "^2.0.0",
+    "gulp-filter": "^4.0.0",
+    "gulp-imagemin": "^3.1.1",
+    "gulp-rev-all": "^0.9.7",
+    "gulp-sync": "^0.1.4",
+    "gulp-uglify": "^2.0.0",
+    "mkdirp": "^0.5.1",
+    "promisify-node": "^0.4.0"
+  },
+  "devDependencies": {
+    "@types/commander": "^2.3.31",
+    "@types/gulp": "^3.8.32",
+    "@types/gulp-csso": "^1.0.29",
+    "@types/gulp-filter": "^3.0.29",
+    "@types/gulp-rev": "^5.0.29",
+    "@types/gulp-rev-replace": "^0.2.29",
+    "@types/gulp-uglify": "0.0.29",
+    "@types/gulp-useref": "^3.0.29",
+    "@types/mkdirp": "^0.3.29",
+    "@types/node": "^6.0.52",
+    "@types/promisify-node": "^0.4.0",
+    "gulp-filelog": "^0.4.1"
+  }
+}
