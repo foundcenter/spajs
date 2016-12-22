@@ -1,5 +1,5 @@
 {
-  "name": "spajs",
+  "name": "@fci/spajs",
   "version": "0.0.1",
   "description": "Tool for deploying static websites/spa to AWS.",
   "main": "dist/index.js",
