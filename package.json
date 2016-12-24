@@ -15,6 +15,7 @@
   "author": "Aleksandar Mirilovic",
   "license": "ISC",
   "dependencies": {
+    "@types/shortid": "0.0.28",
     "aws-sdk": "^2.7.15",
     "commander": "^2.9.0",
     "del": "^2.2.2",
@@ -28,7 +29,8 @@
     "gulp-sync": "^0.1.4",
     "gulp-uglify": "^2.0.0",
     "mkdirp": "^0.5.1",
-    "promisify-node": "^0.4.0"
+    "promisify-node": "^0.4.0",
+    "shortid": "^2.2.6"
   },
   "devDependencies": {
     "@types/commander": "^2.3.31",

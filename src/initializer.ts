@@ -1,5 +1,6 @@
 import * as AWS from 'aws-sdk'
 import { WebsiteConfiguration } from './websiteConfiguration'
+import * as shortid from 'shortid'
 
 export class Initializer {
     static async createBucket(name: string, region: string) {
@@ -66,7 +67,7 @@ export class Initializer {
         }
     }
 
-    static createDistributionConfig(bucket: string) {
+    static createDistributionConfig(bucket: string): AWS.CloudFront.Types.DistributionConfig {
         var originId = `S3-${bucket}`;
 
         var config: AWS.CloudFront.Types.DistributionConfig = { /* required */
@@ -145,32 +146,32 @@ export class Initializer {
         return config;
     }
 
-    static async createDistribution(config: AWS.CloudFront.Types.DistributionConfig) {
+    static async createDistribution(config: AWS.CloudFront.Types.DistributionConfig): Promise<AWS.CloudFront.Types.CreateDistributionResult> {
         let cloudfront = new AWS.CloudFront();
         let result = await cloudfront.createDistribution({ DistributionConfig: config }).promise();
         return result;
     }
 
-    static async getDistribution(id: string) {
+    static async getDistribution(id: string): Promise<AWS.CloudFront.Types.GetDistributionResult> {
         var cloudfront = new AWS.CloudFront();
         var result = await cloudfront.getDistribution({ Id: id }).promise();
 
         return result;
     }
 
-    static async listCertificates() {
+    static async listCertificates(): Promise<AWS.ACM.Types.ListCertificatesResponse> {
         var acm = new AWS.ACM({ region: "us-east-1" });
         var result = await acm.listCertificates({ CertificateStatuses: ["ISSUED"] }).promise();
         return result;
     }
 
-    static setDistributionAlias(config: AWS.CloudFront.Types.DistributionConfig, alias: string) {
+    static setDistributionAlias(config: AWS.CloudFront.Types.DistributionConfig, alias: string): AWS.CloudFront.Types.DistributionConfig {
         config.Aliases.Items = [alias];
         config.Aliases.Quantity = 1;
         return config;
     }
 
-    static setDistributionSSL(config: AWS.CloudFront.Types.DistributionConfig, certicateArn: string) {
+    static setDistributionSSL(config: AWS.CloudFront.Types.DistributionConfig, certicateArn: string): AWS.CloudFront.Types.DistributionConfig {
 
         config.DefaultCacheBehavior.ViewerProtocolPolicy = 'redirect-to-https'
 
@@ -183,10 +184,14 @@ export class Initializer {
         return config;
     }
 
-    static async getDomainCertificate(domain: string) {
+    static async getDomainCertificate(domain: string): Promise<AWS.ACM.CertificateSummary> {
         let certificates = await Initializer.listCertificates();
         let domainCertificate = certificates.CertificateSummaryList.find(c => domain.indexOf(c.DomainName) > -1);
         return domainCertificate;
+    }
+
+    static generateBucketName(): string {
+        return shortid.generate();
     }
 
     static async init(config: WebsiteConfiguration) {
@@ -197,7 +202,7 @@ export class Initializer {
                 signatureVersion: 'v4'
             });
 
-            let bucket = config.domain;
+            let bucket = config.domain || Initializer.generateBucketName();
             console.log(`Creating bucket ${bucket} in region ${config.region}...`);
             await Initializer.createBucket(bucket, config.region);
             console.log(`Bucket ${bucket} created and configured for static website hosting.`);
