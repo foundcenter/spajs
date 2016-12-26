@@ -42,3 +42,7 @@ program.command('deploy <env> [path]')
     });
 
 program.parse(process.argv);
+
+if (!program.args.length) {
+    program.help();
+}
