@@ -7,7 +7,7 @@ import { Initializer } from './initializer'
 import { Deployer } from './deployer'
 import { ConfigurationSerializer } from './configurationSerializer'
 
-program.version('0.0.1')
+program.version('0.0.2')
 
 program.command('init <env>')
     .description('initialize site environment')
