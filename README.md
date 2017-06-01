@@ -72,6 +72,7 @@ $ spajs deploy --help
 
     -h, --help  output usage information
 ```
+
 ### Example
 ```
 $ spajs deploy dev
@@ -98,6 +99,12 @@ Output:
 [14:10:29] [update] page2.html
 [14:10:29] [skip]   templates/template1.html
 [14:10:29] [update] tmp/index.html
+```
+
+You can also deploy project (dir containing `.spajs/`) subfolder (e.g. `dist/`):
+
+```
+$ spajs deploy dev dist/
 ```
 
 Deploy command first uses [uglify](https://github.com/mishoo/UglifyJS) and [csso](https://github.com/css/csso) to optimize all css and js files than it uses [rev-all](https://github.com/smysnk/gulp-rev-all) to version each file and [awspublish](https://github.com/pgherveou/gulp-awspublish) to push the to AWS S3 bucket.
