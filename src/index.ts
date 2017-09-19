@@ -31,11 +31,13 @@ program.command('init <env>')
 
 program.command('deploy <env> [path]')
     .description('deploy content to environment')
+    .option('-r, --rev', 'version all assets', false)
     .action(function (env, path, options) {
         ConfigurationSerializer.load(env, process.cwd()).then((config) => {
             Deployer.deploy({
                 bucket: config.bucket,
                 profile: config.profile,
+                rev: options.rev,
                 inputPath: path || process.cwd()
             });
         });

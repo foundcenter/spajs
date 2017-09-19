@@ -69,11 +69,15 @@ export class Deployer {
         gulp.task('rev-all', function () {
             let dontRenameFile = [/^\/favicon.ico$/g, '.html'];
 
-            return gulp.src(`${distFolder}/**`)
-                .pipe(RevAll.revision({
+            let p = gulp.src(`${distFolder}/**`)
+
+            if (config.rev) {
+                p = p.pipe(RevAll.revision({
                     dontRenameFile: dontRenameFile
-                }))
-                .pipe(gulp.dest(cacheFolder))
+                }));
+            }
+
+            return p.pipe(gulp.dest(cacheFolder))
         });
 
         gulp.task('publish', function () {
@@ -96,7 +100,6 @@ export class Deployer {
                 .pipe(publisher.publish(noCacheHeaders))
                 .pipe(awspublish.reporter());
         });
-
 
         gulp.task("prepare", gulpsync.sync(["clean", "copy", "min", "rev-all", "publish", "publish-cache", "publish-cache-updates"]));
 

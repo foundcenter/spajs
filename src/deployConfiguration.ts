@@ -1,5 +1,6 @@
 export interface DeployConfiguration {
     bucket: string,
     inputPath: string,
-    profile: string
+    profile: string,
+    rev: boolean
 }
