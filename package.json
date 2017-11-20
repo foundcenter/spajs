@@ -1,6 +1,6 @@
 {
   "name": "@fci/spajs",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Tool for deploying static websites/spa to AWS.",
   "main": "dist/index.js",
   "scripts": {

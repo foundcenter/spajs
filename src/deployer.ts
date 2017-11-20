@@ -7,7 +7,6 @@ import * as uglify from 'gulp-uglify'
 import * as csso from 'gulp-csso'
 import * as filelog from 'gulp-filelog'
 import * as del from 'del'
-import * as revCssUrl from 'gulp-rev-css-url'
 import * as imagemin from 'gulp-imagemin'
 import * as awspublish from 'gulp-awspublish'
 import { DeployConfiguration } from './deployConfiguration'
@@ -28,8 +27,11 @@ export class Deployer {
             "params": {
                 "Bucket": config.bucket
             },
-            "credentials": new AWS.SharedIniFileCredentials({ profile: config.profile }),
             "signatureVersion": "v4"
+        }
+
+        if (!process.env.AWS_ACCESS_KEY_ID || !process.env.AWS_SECRET_ACCESS_KEY) {
+            awsConfig["credentials"] = new AWS.SharedIniFileCredentials({ profile: config.profile });
         }
 
         var publisher = awspublish.create(awsConfig);
